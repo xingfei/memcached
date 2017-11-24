@@ -51,8 +51,9 @@ public class MemcacheRequestDecoder extends ByteToMessageDecoder {
 			}
 
 			if (line.readableBytes() > 0) {
-				System.out.println("decoding line:" + line);
-				String[] t = whitespace.split(line.toString(CharsetUtil.UTF_8));
+				String lineStr = line.toString(CharsetUtil.UTF_8);
+				System.out.println("decoding line:" + lineStr);
+				String[] t = whitespace.split(lineStr);
 				try {
 					DecoderState _state = decodeRequest(t);
 					if (_state != null) {
@@ -67,6 +68,7 @@ public class MemcacheRequestDecoder extends ByteToMessageDecoder {
 					break;
 				}
 			}
+			break;
 		case DECODE_DATA:
 			if (buffer.readableBytes() < dataLength) {
 				break;
